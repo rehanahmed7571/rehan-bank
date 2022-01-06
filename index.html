@@ -4,9 +4,127 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
     
+    <div  class="container main">
+        <div id = "login-area">
+            <div class="title text-center">
+                <h1>Wellcome to my Bank</h1>
+            </div>
+
+            <div class="input-area">
+                <h5>LOG IN</h5>
+                <input type="email" placeholder="your email" class="form-control"><br>
+                <input type="password" placeholder="your password" class="form-control"><br>
+                <button id="buttonId" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+
+        <div id="transection-area">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="deposit status">
+                        <h2>Deposit</h2>
+                        <h2 >$ <span id="depositCurrentBalance">00</span></h2>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="withdrow status">
+                        <h2>Withdrow</h2>
+                        <h2>$ <span id="expense">00</span></h2>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="balance status">
+                        <h2>Balance</h2>
+                        <h2>$ <span id = "baLanceStatus">1200</span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="transection-input">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="depost-area">
+                            <h3>DEPOSIT</h3><br>
+                            <input id="deposit-amount" type="text" placeholder="amount you want to deposit" class="form-control"><br>
+                            <button id="deposit-button" class="btn btn-success">Deposit</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="depost-area">
+                            <h3>Withdrow</h3><br>
+                            <input id= "withdrow-Amount" type="text" placeholder="amount you want to withdrow" class="form-control"><br>
+                            <button id="Withdrowbtn" class="btn btn-success">Withdrow</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+<script>
+    
+    // log in button handler
+    let buttonInner = document.getElementById('buttonId').addEventListener('click',function(){ 
+        const loginArea =document.getElementById('login-area');
+        loginArea.style.display="none";
+        document.getElementById('transection-area').style.display='block';
+    });
+
+    //deposit button handler
+    document.getElementById('deposit-button').addEventListener('click',function(){
+
+        const depositAmount= document.getElementById('deposit-amount').value;
+        const depositNumber = parseFloat(depositAmount);
+
+            
+            updateAmount('depositCurrentBalance',depositNumber);
+            updateAmount('baLanceStatus',depositNumber);
+
+        document.getElementById('deposit-amount').value="";
+    })
+
+    function updateAmount(id, depositNumber){
+
+        const balanceStatus = document.getElementById(id).innerText;
+        const balanceStatusNumber = parseFloat(balanceStatus);
+        const totalBalanceStatus = depositNumber + balanceStatusNumber;
+
+            document.getElementById(id).innerText=totalBalanceStatus;
+
+    }
+
+    // withdrow button handler
+
+    document.getElementById('Withdrowbtn').addEventListener('click',function(){
+
+        const withdrowAmount = document.getElementById('withdrow-Amount').value;
+        const withdrowAmountNumber = parseFloat(withdrowAmount);
+
+        document.getElementById('withdrow-Amount').value="";
+
+       updateAmount('baLanceStatus', -1 * withdrowAmountNumber);
+        updateAmount('expense',withdrowAmountNumber);
+
+
+            
+        
+    })
+
+
+</script>
 </body>
 </html>
